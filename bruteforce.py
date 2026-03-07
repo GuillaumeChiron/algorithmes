@@ -1,30 +1,47 @@
 import csv
 
-actions = []
-action_cost = []
-benef = []
-rentability = []
-
-with open("csv/liste_d'actions.csv", mode="r", newline="", encoding="utf-8") as file:
-    reader = csv.DictReader(file)
-
-    for l in reader:
-        actions.append(l["Actions #"])
-        action_cost.append(int(l["Coût par action (en euros)"]))
-        benef.append(l["Bénéfice (après 2 ans)"])
+file = "csv/liste_d'actions.csv"
+max_budget = 500
 
 
-client = 500
+def load_actions(csv_file):
+    liste_actions = []
 
-for i in range(20):
+    with open(csv_file, mode="r", newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
 
-    benefice = int(benef[i].replace("%", "")) / 100
-    renta = 1 + benefice
-    rentability.append(renta)
+        for l in reader:
 
-rentability.sort(reverse=True)
-print(rentability)
+            rendement = int(l["Bénéfice (après 2 ans)"].replace("%", ""))
+            profit = float(l["Coût par action (en euros)"]) * (rendement / 100)
 
-for a in range(20):
-    action_client = rentability[a] * action_cost[a]
-    print(action_client)
+            liste_actions.append(
+                {
+                    "action": l["Actions #"],
+                    "cost": int(l["Coût par action (en euros)"]),
+                    "profit": profit,
+                }
+            )
+
+    return liste_actions
+
+
+list_actions = load_actions(file)
+
+cost = 0
+profit = 0
+
+
+def action_check(cost, profit, list_actions):
+
+    for i in list_actions:
+
+        if (cost + i["cost"]) >= 500:
+            return
+
+        cost += i["cost"]
+        profit += i["profit"]
+        print(f"{cost} / {profit:.2f}")
+
+
+action_check(cost, profit, list_actions)
