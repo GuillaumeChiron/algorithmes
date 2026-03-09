@@ -29,6 +29,39 @@ list_actions = load_actions(file)
 max_budget = 500
 
 
+def brute_force(list_actions, budget_max):
+
+    best_cost = 0
+    best_profit = 0
+    best_combo = []
+
+    def check_action(index, actual_cost, actual_profit, actual_combo):
+        nonlocal best_cost
+        nonlocal best_profit
+        nonlocal best_combo
+
+        if index == len(list_actions):
+            best_cost = actual_cost
+            best_profit = actual_profit
+            best_combo = actual_combo.copy()
+            return
+
+        action = list_actions[index]
+
+        if actual_cost + action["cost"] < budget_max:
+
+            best_cost = actual_cost + action["cost"]
+            best_profit = actual_profit + action["profit"]
+            best_combo.append(action["action"])
+
+            check_action(index + 1, best_cost, best_profit, best_combo)
+
+    check_action(0, 0, 0, [])
+
+    return best_cost, round(best_profit, 2), best_combo
+
+
+"""
 # Retourne la meilleur combinaison d'actions avec le meilleur cout et le meilleur profit
 def brute_force(list_actions, max_budget):
 
@@ -60,3 +93,4 @@ def brute_force(list_actions, max_budget):
     check_action(0, 0, 0, [])
 
     return best_cost, best_profit, best_combo
+"""
