@@ -51,6 +51,7 @@ def brute_force(list_actions: list, budget_max: int):
         if index == len(list_actions):
 
             calls += 1
+            print(calls, actual_cost, round(actual_profit, 2), actual_combo)
 
             if actual_profit > best_profit:
                 best_cost = actual_cost
