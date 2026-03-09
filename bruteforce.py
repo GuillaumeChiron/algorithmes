@@ -1,4 +1,5 @@
 import csv
+from rich.progress import Progress
 
 file = "csv/liste_d'actions.csv"
 
@@ -29,68 +30,55 @@ list_actions = load_actions(file)
 max_budget = 500
 
 
-def brute_force(list_actions, budget_max):
+# Retourne la liste des meilleures actions avec le meilleur profit
+def brute_force(list_actions: list, budget_max: int):
 
     best_cost = 0
     best_profit = 0
     best_combo = []
 
+    calls = 0
+    total = 2 ** len(list_actions)
+
+    # Analyse chaques possiblilités (prendre ou pas l'action)
     def check_action(index, actual_cost, actual_profit, actual_combo):
         nonlocal best_cost
         nonlocal best_profit
         nonlocal best_combo
+        nonlocal calls
 
+        # Condition d'arrêt de la recursivité
         if index == len(list_actions):
-            best_cost = actual_cost
-            best_profit = actual_profit
-            best_combo = actual_combo.copy()
-            return
 
-        action = list_actions[index]
+            calls += 1
 
-        if actual_cost + action["cost"] < budget_max:
-
-            best_cost = actual_cost + action["cost"]
-            best_profit = actual_profit + action["profit"]
-            best_combo.append(action["action"])
-
-            check_action(index + 1, best_cost, best_profit, best_combo)
-
-    check_action(0, 0, 0, [])
-
-    return best_cost, round(best_profit, 2), best_combo
-
-
-"""
-# Retourne la meilleur combinaison d'actions avec le meilleur cout et le meilleur profit
-def brute_force(list_actions, max_budget):
-
-    best_cost = 0
-    best_profit = 0
-    best_combo = []
-
-    # Analyse l'action et teste les possibilités avec ou sans l'action
-    def check_action(index, actual_cost, actual_profit, actual_combo):
-        nonlocal best_cost
-        nonlocal best_profit
-        nonlocal best_combo
-
-        # consition d'arrêt de la fonction
-        if index == len(list_actions):
             if actual_profit > best_profit:
-                best_profit = actual_profit
                 best_cost = actual_cost
+                best_profit = actual_profit
                 best_combo = actual_combo.copy()
             return
 
-        # recupère l'action à l'index precis et la stock dans action
+        # Initialise l'action au bon index
         action = list_actions[index]
 
-        # test le cas où on ne prend pas l'action
+        # Cas où l'actrion n'est pas prise en compte
+        check_action(index + 1, actual_cost, actual_profit, actual_combo)
 
-        # test le cas où on prend l'action
+        # Cas où l'action est prise en compte
+        new_cost = actual_cost + action["cost"]
+        if new_cost <= budget_max:
+            new_profit = actual_profit + action["profit"]
+            new_combo = actual_combo + [action["action"]]
 
+            check_action(index + 1, new_cost, new_profit, new_combo)
+
+    # lance une première fois la fonction check_action
     check_action(0, 0, 0, [])
 
-    return best_cost, best_profit, best_combo
-"""
+    print(calls)
+
+    # Retourne les valeur du cout, du profit ainsi que la liste avec les meilleures action achetées
+    return best_cost, round(best_profit, 2), best_combo
+
+
+print(brute_force(list_actions, max_budget))
