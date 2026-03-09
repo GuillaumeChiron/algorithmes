@@ -37,7 +37,6 @@ def brute_force(list_actions: list, budget_max: int):
     best_combo = []
 
     calls = 0
-    total = 2 ** len(list_actions)
 
     # Analyse chaques possiblilités (prendre ou pas l'action)
     def check_action(index, actual_cost, actual_profit, actual_combo):
@@ -61,7 +60,7 @@ def brute_force(list_actions: list, budget_max: int):
         # Initialise l'action au bon index
         action = list_actions[index]
 
-        # Cas où l'actrion n'est pas prise en compte
+        # Cas où l'action n'est pas prise en compte
         check_action(index + 1, actual_cost, actual_profit, actual_combo)
 
         # Cas où l'action est prise en compte
