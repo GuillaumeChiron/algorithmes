@@ -1,7 +1,6 @@
 import csv
 
 file = "csv/liste_d'actions.csv"
-max_budget = 500
 
 
 def load_actions(csv_file):
@@ -27,21 +26,37 @@ def load_actions(csv_file):
 
 
 list_actions = load_actions(file)
-
-cost = 0
-profit = 0
+max_budget = 500
 
 
-def action_check(cost, profit, list_actions):
+# Retourne la meilleur combinaison d'actions avec le meilleur cout et le meilleur profit
+def brute_force(list_actions, max_budget):
 
-    for i in list_actions:
+    best_cost = 0
+    best_profit = 0
+    best_combo = []
 
-        if (cost + i["cost"]) >= 500:
+    # Analyse l'action et teste les possibilités avec ou sans l'action
+    def check_action(index, actual_cost, actual_profit, actual_combo):
+        nonlocal best_cost
+        nonlocal best_profit
+        nonlocal best_combo
+
+        # consition d'arrêt de la fonction
+        if index == len(list_actions):
+            if actual_profit > best_profit:
+                best_profit = actual_profit
+                best_cost = actual_cost
+                best_combo = actual_combo.copy()
             return
 
-        cost += i["cost"]
-        profit += i["profit"]
-        print(f"{cost} / {profit:.2f}")
+        # recupère l'action à l'index precis et la stock dans action
+        action = list_actions[index]
 
+        # test le cas où on ne prend pas l'action
 
-action_check(cost, profit, list_actions)
+        # test le cas où on prend l'action
+
+    check_action(0, 0, 0, [])
+
+    return best_cost, best_profit, best_combo
