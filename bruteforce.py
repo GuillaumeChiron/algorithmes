@@ -1,5 +1,4 @@
 import csv
-from rich.progress import Progress
 
 file = "csv/liste_d'actions.csv"
 
