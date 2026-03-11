@@ -1,25 +1,25 @@
 import csv
 
-file = "csv/liste_d'actions.csv"
+file = "csv/dataset1.csv"
 
 
 def load_actions(csv_file):
-    liste_actions = []
+    list_actions = []
 
     with open(csv_file, mode="r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
 
         for l in reader:
 
-            liste_actions.append(
+            list_actions.append(
                 {
                     "action": l["name"],
-                    "cost": int(l["price"]),
-                    "profit": int(l["profit"]),
+                    "cost": float(l["price"]),
+                    "profit": float(l["profit"]),
                 }
             )
 
-    return liste_actions
+    return list_actions
 
 
 list_actions = load_actions(file)
