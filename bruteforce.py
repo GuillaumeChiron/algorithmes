@@ -35,21 +35,17 @@ def brute_force(list_actions: list, budget_max: int):
     best_cost = 0
     best_profit = 0
     best_combo = []
-
-    calls = 0
+    count = 0
 
     # Analyse chaques possiblilités (prendre ou pas l'action)
     def check_action(index, actual_cost, actual_profit, actual_combo):
         nonlocal best_cost
         nonlocal best_profit
         nonlocal best_combo
-        nonlocal calls
+        nonlocal count
 
         # Condition d'arrêt de la recursivité
         if index == len(list_actions):
-
-            calls += 1
-            print(calls, actual_cost, round(actual_profit, 2), actual_combo)
 
             if actual_profit > best_profit:
                 best_cost = actual_cost
@@ -71,10 +67,12 @@ def brute_force(list_actions: list, budget_max: int):
 
             check_action(index + 1, new_cost, new_profit, new_combo)
 
+        count += 1
+
     # lance une première fois la fonction check_action
     check_action(0, 0, 0, [])
 
-    print(calls)
+    print(count)
 
     # Retourne les valeur du cout, du profit ainsi que la liste avec les meilleures action achetées
     return best_cost, round(best_profit, 2), best_combo
