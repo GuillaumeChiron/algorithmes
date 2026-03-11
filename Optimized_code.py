@@ -4,25 +4,22 @@ file = "csv/liste_d'actions.csv"
 
 
 def load_actions(csv_file):
-    list_actions = []
+    liste_actions = []
 
     with open(csv_file, mode="r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
 
         for l in reader:
 
-            rendement = int(l["Bénéfice (après 2 ans)"].replace("%", ""))
-            profit = float(l["Coût par action (en euros)"]) * (rendement / 100)
-
-            list_actions.append(
+            liste_actions.append(
                 {
-                    "action": l["Actions #"],
-                    "cost": int(l["Coût par action (en euros)"]),
-                    "profit": profit,
+                    "action": l["name"],
+                    "cost": int(l["price"]),
+                    "profit": int(l["profit"]),
                 }
             )
 
-    return list_actions
+    return liste_actions
 
 
 list_actions = load_actions(file)
