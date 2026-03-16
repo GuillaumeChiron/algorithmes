@@ -28,9 +28,9 @@ def load_actions(csv_file):
 
 list_actions, count = load_actions(file)
 max_budget = 500
-list_prices = []
+cost = 0
 
 actions_sorted = sorted(list_actions, key=lambda x: x["price"])
 
 for i in actions_sorted:
-    print(i)
+    print(i["price"])
