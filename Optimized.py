@@ -18,7 +18,7 @@ def load_actions(csv_file):
                 list_actions.append(
                     {
                         "action": l["name"],
-                        "cost": float(l["price"]),
+                        "price": float(l["price"]),
                         "profit": float(l["profit"]),
                     }
                 )
@@ -28,8 +28,9 @@ def load_actions(csv_file):
 
 list_actions, count = load_actions(file)
 max_budget = 500
+list_prices = []
 
-for i in list_actions:
+actions_sorted = sorted(list_actions, key=lambda x: x["price"])
+
+for i in actions_sorted:
     print(i)
-
-print(count)
