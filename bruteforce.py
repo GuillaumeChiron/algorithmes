@@ -3,6 +3,7 @@ import csv
 file = "csv/liste_d'actions.csv"
 
 
+# Fonction qui permet de récupérer les données d'un fichier csv et retourner une liste de ces données
 def load_actions(csv_file):
     list_actions = []
 
