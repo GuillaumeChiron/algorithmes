@@ -12,13 +12,13 @@ def load_actions(csv_file):
 
         for l in reader:
 
-            rendement = int(l["Bénéfice (après 2 ans)"].replace("%", ""))
+            rendement = float(l["Bénéfice (après 2 ans)"].replace("%", ""))
             profit = float(l["Coût par action (en euros)"]) * (rendement / 100)
 
             list_actions.append(
                 {
                     "action": l["Actions #"],
-                    "cost": int(l["Coût par action (en euros)"]),
+                    "cost": float(l["Coût par action (en euros)"]),
                     "profit": profit,
                 }
             )
