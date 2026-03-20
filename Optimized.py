@@ -15,11 +15,15 @@ def load_actions(csv_file):
 
             if float(l["price"]) > 0:
 
+                profit = float(l["profit"])
+                price = float(l["price"])
+
                 list_actions.append(
                     {
                         "action": l["name"],
-                        "price": float(l["price"]),
-                        "profit": float(l["profit"]),
+                        "price": price,
+                        "profit": profit,
+                        "rendement": float((price * profit) / 100),
                     }
                 )
 
@@ -30,9 +34,7 @@ list_actions = load_actions(file)
 max_budget = 500
 cost = 0
 
-"""
-actions_sorted = sorted(list_actions, key=lambda x: x["price"])
+actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True)
 
 for i in actions_sorted:
-    print(i["price"])
-"""
+    print(i["rendement"])
