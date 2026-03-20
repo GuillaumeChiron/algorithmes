@@ -47,6 +47,7 @@ def brute_force(list_actions: list, budget_max: int):
 
         # Condition d'arrêt de la recursivité
         if index == len(list_actions):
+            count += 1
 
             if actual_profit > best_profit:
                 best_cost = actual_cost
@@ -67,8 +68,6 @@ def brute_force(list_actions: list, budget_max: int):
             new_combo = actual_combo + [action["action"]]
 
             check_action(index + 1, new_cost, new_profit, new_combo)
-
-        count += 1
 
     # lance une première fois la fonction check_action
     check_action(0, 0, 0, [])
