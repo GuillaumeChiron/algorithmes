@@ -37,6 +37,7 @@ def brute_force(list_actions: list, budget_max: int):
     best_profit = 0
     best_combo = []
     count = 0
+    total_possibilities = 2 ** len(list_actions)
 
     # Analyse chaques possiblilités (prendre ou pas l'action)
     def check_action(index, actual_cost, actual_profit, actual_combo):
@@ -72,10 +73,13 @@ def brute_force(list_actions: list, budget_max: int):
     # lance une première fois la fonction check_action
     check_action(0, 0, 0, [])
 
-    print(count)
+    # Affiche les combinaisons théoriques,les combinaisons testées, les valeur du cout, du profit ainsi que la liste avec les meilleures action achetées
+    print(f"Combinaisons théoriques : {total_possibilities}")
+    print(f"Combinaisons testées : {count}")
+    print(
+        f"Le meilleur profit est de {round(best_profit, 2)}€, pour un cout de {best_cost}€"
+    )
+    print(f"Liste des actions: {best_combo}")
 
-    # Retourne les valeur du cout, du profit ainsi que la liste avec les meilleures action achetées
-    return best_cost, round(best_profit, 2), best_combo
 
-
-print(brute_force(list_actions, max_budget))
+(brute_force(list_actions, max_budget))
