@@ -37,4 +37,4 @@ cost = 0
 actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True)
 
 for i in actions_sorted:
-    print(round(i["rendement"], 2))
+    print(f"Rendement: {i["rendement"]}")
