@@ -17,13 +17,15 @@ def load_actions(csv_file):
 
                 profit = float(l["profit"])
                 price = float(l["price"])
+                action = l["name"]
+                rendement = float((profit / price) * 100)
 
                 list_actions.append(
                     {
-                        "action": l["name"],
+                        "action": action,
                         "price": price,
                         "profit": profit,
-                        "rendement": float((profit / price) * 100),
+                        "rendement": rendement,
                     }
                 )
 
@@ -38,5 +40,5 @@ actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True
 
 for i in actions_sorted:
     print(
-        f"Action: {i["action"]} / Prix: {i["price"]} / Profit: {round(i["profit"])} / Rendement: {round(i["rendement"],2)}"
+        f'Action: {i["action"]} / Prix: {i["price"]} / Profit: {round(i["profit"])} / Rendement: {round(i["rendement"],2)}'
     )
