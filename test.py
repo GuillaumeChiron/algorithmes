@@ -11,11 +11,16 @@ n = len(actions)
 
 dp = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
 
-for a in range(1, len(actions) + 1):
-    for w in range(1, budget + 1):
-        cost = actions[a - 1]["cost"]
-        profit = actions[a - 1]["profit"]
-        if cost <= budget:
-            dp[a][w] += dp[a][w - 1] + profit
+for a in range(1, n + 1):
+    action = actions[a - 1]
+    price = action["cost"]
+    profit = action["profit"]
+    print(action["name"])
 
-print(dp)
+    for w in range(budget + 1):
+        if price <= w:
+            dp[a][w] = max(dp[a - 1][w], dp[a - 1][w - price] + profit)
+        else:
+            dp[a][w] = dp[a - 1][w]
+
+print(dp[n][budget])

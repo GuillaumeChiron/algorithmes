@@ -33,12 +33,44 @@ def load_actions(csv_file):
 
 
 list_actions = load_actions(file)
-max_budget = 500
-cost = 0
 
 actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True)
 
-for i in actions_sorted:
-    print(
-        f'Action: {i["action"]} / Prix: {i["price"]} / Profit: {round(i["profit"])} / Rendement: {round(i["rendement"],2)}'
-    )
+# for i in actions_sorted:
+#     print(
+#         f'Action: {i["action"]} / Prix: {i["price"]} / Profit: {round(i["profit"])} / Rendement: {round(i["rendement"],2)}'
+#     )
+
+budget = 500
+n = len(actions_sorted)
+
+matrice = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
+
+for a in range(1, n + 1):
+
+    action = actions_sorted[a - 1]
+    price = int((action["price"]) * 100)
+    profit = action["profit"]
+
+    for w in range(1, budget + 1):
+
+        if price <= w:
+            matrice[a][w] = max(matrice[a - 1][w], matrice[a - 1][w - price] + profit)
+        else:
+            matrice[a][w] = matrice[a - 1][w]
+
+
+best_profit = matrice[n][budget]
+best_cost = 0
+best_combo = []
+w = budget
+
+for i in range(n, 0, -1):
+    if matrice[i][w] != matrice[i - 1][w]:
+        action = actions_sorted[i - 1]
+        best_combo.append(action["action"])
+        best_cost += action["price"]
+        w -= action["price"]
+
+
+print(best_combo, best_cost, best_profit)
