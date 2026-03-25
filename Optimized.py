@@ -16,7 +16,7 @@ def load_actions(csv_file):
             if float(l["price"]) > 0:
 
                 profit = float(l["profit"])
-                price = float(l["price"])
+                price = int(float(l["price"]) * 100)
                 action = l["name"]
                 rendement = float((profit / price) * 100)
 
@@ -41,7 +41,7 @@ actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True
 #         f'Action: {i["action"]} / Prix: {i["price"]} / Profit: {round(i["profit"])} / Rendement: {round(i["rendement"],2)}'
 #     )
 
-budget = 500
+budget = 50000
 n = len(actions_sorted)
 
 matrice = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
@@ -49,7 +49,7 @@ matrice = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
 for a in range(1, n + 1):
 
     action = actions_sorted[a - 1]
-    price = int((action["price"]) * 100)
+    price = int((action["price"]))
     profit = action["profit"]
 
     for w in range(1, budget + 1):
@@ -73,4 +73,6 @@ for i in range(n, 0, -1):
         w -= action["price"]
 
 
-print(best_combo, best_cost, best_profit)
+print(
+    f"L'achat des {len(best_combo)} actions suivantes:\n {best_combo}\n pour un coût de {best_cost/100}€ à générer {round(best_profit)}€"
+)
