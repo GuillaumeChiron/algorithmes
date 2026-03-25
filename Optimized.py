@@ -1,5 +1,4 @@
 import csv
-from itertools import combinations
 
 file = "csv/dataset1.csv"
 
@@ -36,11 +35,6 @@ list_actions = load_actions(file)
 
 actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True)
 
-# for i in actions_sorted:
-#     print(
-#         f'Action: {i["action"]} / Prix: {i["price"]} / Profit: {round(i["profit"])} / Rendement: {round(i["rendement"],2)}'
-#     )
-
 budget = 50000
 n = len(actions_sorted)
 
@@ -74,5 +68,5 @@ for i in range(n, 0, -1):
 
 
 print(
-    f"L'achat des {len(best_combo)} actions suivantes:\n {best_combo}\n pour un coût de {best_cost/100}€ à générer {round(best_profit)}€"
+    f"L'achat des {len(best_combo)} actions suivantes:\n {best_combo}\n pour un coût total de {best_cost/100}€ à générer {round(best_profit, 2)}€ de profit"
 )
