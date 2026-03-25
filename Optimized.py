@@ -37,29 +37,29 @@ def knapsack(list, budget, n):
     for a in range(1, n + 1):
 
         action = list[a - 1]
-        price = int((action["price"]))
+        price = action["price"]
         profit = action["profit"]
 
-        for w in range(1, budget + 1):
+        for b in range(1, budget + 1):
 
-            if price <= w:
-                matrice[a][w] = max(
-                    matrice[a - 1][w], matrice[a - 1][w - price] + profit
+            if price <= b:
+                matrice[a][b] = max(
+                    matrice[a - 1][b], matrice[a - 1][b - price] + profit
                 )
             else:
-                matrice[a][w] = matrice[a - 1][w]
+                matrice[a][b] = matrice[a - 1][b]
 
     best_profit = matrice[n][budget]
     best_cost = 0
     best_combo = []
-    w = budget
+    b = budget
 
     for i in range(n, 0, -1):
-        if matrice[i][w] != matrice[i - 1][w]:
+        if matrice[i][b] != matrice[i - 1][b]:
             action = actions_sorted[i - 1]
             best_combo.append(action["action"])
             best_cost += action["price"]
-            w -= action["price"]
+            b -= action["price"]
 
     best_cost = best_cost / 100
 
