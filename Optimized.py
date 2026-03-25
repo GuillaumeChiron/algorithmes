@@ -5,7 +5,6 @@ file = "csv/dataset1.csv"
 
 def load_actions(csv_file):
     list_actions = []
-    count = 0
 
     with open(csv_file, mode="r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
