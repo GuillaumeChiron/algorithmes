@@ -38,3 +38,5 @@ print(len(actions_sorted))
 
 budget = 500
 n = len(actions_sorted)
+
+test = "Ceci est un test"
