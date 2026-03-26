@@ -1,6 +1,7 @@
 import csv
 
 file = "csv/dataset1.csv"
+file2 = "csv/dataset2.csv"
 
 
 def load_actions(csv_file):
@@ -66,12 +67,24 @@ def knapsack(list, budget, n):
     return best_profit, best_cost, best_combo
 
 
+def affichage(best_profit, best_cost, best_combo):
+    print(
+        f"L'achat des {len(best_combo)} actions suivantes:\n {best_combo}\n pour un coût total de {best_cost}€ ont générés {round(best_profit, 2)}€ de profit"
+    )
+
+
 list_actions = load_actions(file)
+list_actions2 = load_actions(file2)
+
 actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True)
+actions_sorted2 = sorted(list_actions2, key=lambda x: x["rendement"], reverse=True)
+
 budget = 50000
 n = len(actions_sorted)
-best_profit, best_cost, best_combo = knapsack(actions_sorted, budget, n)
+n2 = len(actions_sorted2)
 
-print(
-    f"L'achat des {len(best_combo)} actions suivantes:\n {best_combo}\n pour un coût total de {best_cost}€ à générer {round(best_profit, 2)}€ de profit"
-)
+best_profit, best_cost, best_combo = knapsack(actions_sorted, budget, n)
+best_profit2, best_cost2, best_combo2 = knapsack(actions_sorted2, budget, n2)
+
+affichage(best_profit, best_cost, best_combo)
+affichage(best_profit2, best_cost2, best_combo2)
