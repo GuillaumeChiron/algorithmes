@@ -61,7 +61,7 @@ def knapsack(list, budget, n):
     return best_profit, best_cost / 100, best_combo
 
 
-def affichage(best_profit, best_cost, best_combo):
+def display_result(best_profit, best_cost, best_combo):
     print(
         f"L'achat des {len(best_combo)} actions suivantes:\n"
         f"{best_combo}\n"
@@ -82,5 +82,5 @@ n2 = len(actions_sorted2)
 best_profit, best_cost, best_combo = knapsack(actions_sorted, budget, n)
 best_profit2, best_cost2, best_combo2 = knapsack(actions_sorted2, budget, n2)
 
-affichage(best_profit, best_cost, best_combo)
-affichage(best_profit2, best_cost2, best_combo2)
+display_result(best_profit, best_cost, best_combo)
+display_result(best_profit2, best_cost2, best_combo2)
