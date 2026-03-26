@@ -34,7 +34,7 @@ def brute_force_recursive(list_actions: list, budget_max: int):
         check_action(index + 1, actual_cost, actual_profit, actual_combo)
 
         # Cas où l'action est prise en compte
-        new_cost = actual_cost + action["cost"]
+        new_cost = actual_cost + action["price"]
         if new_cost <= budget_max:
             new_profit = actual_profit + action["profit"]
             new_combo = actual_combo + [action["action"]]
@@ -60,7 +60,7 @@ def brute_force_itertools(list_actions, budget):
         for combo in combinations(list_actions, i):
             count += 1
 
-            total_cost = sum(action["cost"] for action in combo)
+            total_cost = sum(action["price"] for action in combo)
             if total_cost <= budget:
                 total_profit = sum(action["profit"] for action in combo)
                 if total_profit > best_profit:

@@ -35,7 +35,7 @@ def knapsack(actions, budget):
 
 def greedy_actions(actions, budget_max):
 
-    actions_sorted = sorted(actions, key=lambda x: x["rendement"], reverse=True)
+    actions_sorted = sorted(actions, key=lambda x: x["profit"], reverse=True)
 
     total_cost = 0
     total_profit = 0

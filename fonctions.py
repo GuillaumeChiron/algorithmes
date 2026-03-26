@@ -16,7 +16,7 @@ def load_actions(csv_file):
             list_actions.append(
                 {
                     "action": l["Actions #"],
-                    "cost": float(l["Coût par action (en euros)"]),
+                    "price": int(l["Coût par action (en euros)"]),
                     "profit": profit,
                 }
             )
