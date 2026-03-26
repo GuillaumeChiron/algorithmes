@@ -11,13 +11,11 @@ def load_actions(csv_file):
         reader = csv.DictReader(file)
 
         for l in reader:
-
             if float(l["price"]) > 0:
-
                 profit = float(l["profit"])
                 price = int(float(l["price"]) * 100)
                 action = l["name"]
-                rendement = float((profit / price) * 100)
+                rendement = (profit / price) * 100
 
                 list_actions.append(
                     {
@@ -32,20 +30,18 @@ def load_actions(csv_file):
 
 
 def knapsack(list, budget, n):
-
     matrice = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
 
     for a in range(1, n + 1):
-
         action = list[a - 1]
         price = action["price"]
         profit = action["profit"]
 
         for b in range(1, budget + 1):
-
             if price <= b:
                 matrice[a][b] = max(
-                    matrice[a - 1][b], matrice[a - 1][b - price] + profit
+                    matrice[a - 1][b],
+                    matrice[a - 1][b - price] + profit,
                 )
             else:
                 matrice[a][b] = matrice[a - 1][b]
@@ -57,19 +53,19 @@ def knapsack(list, budget, n):
 
     for i in range(n, 0, -1):
         if matrice[i][b] != matrice[i - 1][b]:
-            action = actions_sorted[i - 1]
+            action = list[i - 1]
             best_combo.append(action["action"])
             best_cost += action["price"]
             b -= action["price"]
 
-    best_cost = best_cost / 100
-
-    return best_profit, best_cost, best_combo
+    return best_profit, best_cost / 100, best_combo
 
 
 def affichage(best_profit, best_cost, best_combo):
     print(
-        f"L'achat des {len(best_combo)} actions suivantes:\n {best_combo}\n pour un coût total de {best_cost}€ ont générés {round(best_profit, 2)}€ de profit"
+        f"L'achat des {len(best_combo)} actions suivantes:\n"
+        f"{best_combo}\n"
+        f"pour un cout total de {best_cost} EUR a genere {round(best_profit, 2)} EUR de profit"
     )
 
 

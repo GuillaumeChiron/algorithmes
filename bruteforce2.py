@@ -4,22 +4,49 @@ import csv
 file = "csv/liste_d'actions.csv"
 
 
-# Fonction qui permet de récupérer les données d'un fichier csv et retourner une liste de ces données
+def find_column(fieldnames, candidates):
+    for candidate in candidates:
+        if candidate in fieldnames:
+            return candidate
+    raise KeyError(f"Unable to find expected column. Known columns: {fieldnames}")
+
+
 def load_actions(csv_file):
     list_actions = []
 
     with open(csv_file, mode="r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
+        if reader.fieldnames is None:
+            return list_actions
+
+        fieldnames = reader.fieldnames
+        action_col = find_column(fieldnames, ["Actions #"])
+        cost_col = find_column(
+            fieldnames,
+            [
+                "Coût par action (en euros)",
+                "CoÃ»t par action (en euros)",
+                "cout par action (en euros)",
+            ],
+        )
+        profit_percent_col = find_column(
+            fieldnames,
+            [
+                "Bénéfice (après 2 ans)",
+                "BÃ©nÃ©fice (aprÃ¨s 2 ans)",
+                "benefice (apres 2 ans)",
+            ],
+        )
 
         for l in reader:
-
-            rendement = float(l["Bénéfice (après 2 ans)"].replace("%", ""))
-            profit = float(l["Coût par action (en euros)"]) * (rendement / 100)
+            rendement = float(l[profit_percent_col].replace("%", ""))
+            cost = float(l[cost_col])
+            profit = cost * (rendement / 100)
 
             list_actions.append(
                 {
-                    "action": l["Actions #"],
-                    "cost": float(l["Coût par action (en euros)"]),
+                    "action": l[action_col],
+                    "cost": cost,
                     "profit": profit,
                 }
             )
@@ -49,10 +76,7 @@ for i in range(n + 1):
                 best_profit = total_profit
                 best_combo = [action["action"] for action in combo]
 
-# Affiche les combinaisons théoriques,les combinaisons testées, les valeur du cout, du profit ainsi que la liste avec les meilleures action achetées
-print(f"Combinaisons théoriques : {total_possibilities}")
-print(f"Combinaisons testées : {count}")
-print(
-    f"Le meilleur profit est de {round(best_profit, 2)}€, pour un cout de {best_cost}€"
-)
+print(f"Combinaisons theoriques : {total_possibilities}")
+print(f"Combinaisons testees : {count}")
+print(f"Le meilleur profit est de {round(best_profit, 2)} EUR, pour un cout de {best_cost} EUR")
 print(f"Liste des actions: {best_combo}")
