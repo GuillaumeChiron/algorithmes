@@ -1,6 +1,7 @@
 import csv
 
 file = "csv/dataset1.csv"
+file2 = "csv/dataset2.csv"
 
 
 def load_actions(csv_file):
@@ -30,17 +31,15 @@ def load_actions(csv_file):
     return list_actions
 
 
-def greedy_actions(list_actions, budget_max):
+def greedy_actions(actions, budget_max):
 
-    list_actions_sorted = sorted(
-        list_actions, key=lambda x: x["rendement"], reverse=True
-    )
+    actions_sorted = sorted(actions, key=lambda x: x["rendement"], reverse=True)
 
     total_cost = 0
     total_profit = 0
     actions_selected = []
 
-    for i in list_actions_sorted:
+    for i in actions_sorted:
         if total_cost + i["price"] <= budget_max:
             total_cost += i["price"]
             total_profit += i["profit"]
@@ -58,6 +57,13 @@ def display_result(best_profit, best_cost, best_combo):
 
 
 budget = 500
+
 list_actions = load_actions(file)
+list_actions2 = load_actions(file2)
+
 total_profit, total_cost, actions_selected = greedy_actions(list_actions, budget)
 display_result(total_profit, total_cost, actions_selected)
+
+
+total_profit2, total_cost2, actions_selected2 = greedy_actions(list_actions2, budget)
+display_result(total_profit2, total_cost2, actions_selected2)

@@ -29,11 +29,13 @@ def load_actions(csv_file):
     return list_actions
 
 
-def knapsack(list, budget, n):
+def knapsack(actions, budget):
+
+    n = len(actions)
     matrice = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
 
     for a in range(1, n + 1):
-        action = list[a - 1]
+        action = actions[a - 1]
         price = action["price"]
         profit = action["profit"]
 
@@ -53,7 +55,7 @@ def knapsack(list, budget, n):
 
     for i in range(n, 0, -1):
         if matrice[i][b] != matrice[i - 1][b]:
-            action = list[i - 1]
+            action = actions[i - 1]
             best_combo.append(action["action"])
             best_cost += action["price"]
             b -= action["price"]
@@ -72,15 +74,11 @@ def display_result(best_profit, best_cost, best_combo):
 list_actions = load_actions(file)
 list_actions2 = load_actions(file2)
 
-actions_sorted = sorted(list_actions, key=lambda x: x["rendement"], reverse=True)
-actions_sorted2 = sorted(list_actions2, key=lambda x: x["rendement"], reverse=True)
 
 budget = 50000
-n = len(actions_sorted)
-n2 = len(actions_sorted2)
 
-best_profit, best_cost, best_combo = knapsack(actions_sorted, budget, n)
-best_profit2, best_cost2, best_combo2 = knapsack(actions_sorted2, budget, n2)
-
+best_profit, best_cost, best_combo = knapsack(list_actions, budget)
 display_result(best_profit, best_cost, best_combo)
+
+best_profit2, best_cost2, best_combo2 = knapsack(list_actions2, budget)
 display_result(best_profit2, best_cost2, best_combo2)
