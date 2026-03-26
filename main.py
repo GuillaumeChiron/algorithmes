@@ -1,2 +1,3 @@
 from fonctions import load_actions, display_result_bruteforce, display_result_optimized
-from bruteforce import brute_force, brute_force2
+from bruteforce import brute_force_recursive, brute_force_itertools
+from optimized import knapsack, greedy_actions

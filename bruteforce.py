@@ -2,7 +2,7 @@ from itertools import combinations
 
 
 # Retourne la liste des meilleures actions avec le meilleur profit
-def brute_force(list_actions: list, budget_max: int):
+def brute_force_recursive(list_actions: list, budget_max: int):
 
     best_cost = 0
     best_profit = 0
@@ -47,7 +47,7 @@ def brute_force(list_actions: list, budget_max: int):
     return total_possibilities, count, best_profit, best_cost, best_combo
 
 
-def brute_force2(list_actions, budget):
+def brute_force_itertools(list_actions, budget):
     best_cost = 0
     best_profit = 0
     best_combo = []
