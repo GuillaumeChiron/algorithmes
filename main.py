@@ -7,21 +7,16 @@ from bruteforce import brute_force_recursive, brute_force_itertools
 from optimized import knapsack, greedy_actions
 from sienna import load_actions_sienna, knapsack_sienna, greedy_actions_sienna
 
-file = "csv/liste_d'actions.csv"
+FILE = "csv/liste_d'actions.csv"
+DATASET1 = "csv/dataset1.csv"
+DATASET2 = "csv/dataset2.csv"
 
-actions = load_actions(file)
+actions = load_actions_sienna(DATASET1)
 
-best_profit, best_cost, best_combo = greedy_actions(actions, 500)
+best_profit, best_cost, best_combo = knapsack_sienna(actions, 50000)
 display_result_optimized(best_profit, best_cost, best_combo)
+
 print(" ")
 
-best_profit, best_cost, best_combo = knapsack(actions, 500)
-display_result_optimized(best_profit, best_cost, best_combo)
-print("")
-
-total_possibilities, count, best_profit, best_cost, best_combo = brute_force_itertools(
-    actions, 500
-)
-display_result_bruteforce(
-    total_possibilities, count, best_profit, best_cost, best_combo
-)
+total_profit, total_cost, actions_selected = greedy_actions_sienna(actions, 50000)
+display_result_optimized(total_profit, total_cost, actions_selected)

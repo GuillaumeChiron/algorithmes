@@ -28,8 +28,8 @@ def load_actions(csv_file):
 def display_result_optimized(best_profit, best_cost, best_combo):
 
     print(
-        f"L'achat des {len(best_combo)} actions suivantes:\n"
-        f"{best_combo}\n"
+        f"L'achat des {len(best_combo)} actions suivantes:\n\n"
+        f"{best_combo}\n\n"
         f"pour un cout total de {best_cost} EUR a genere {round(best_profit, 2)} EUR de profit"
     )
 

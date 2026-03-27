@@ -1,7 +1,6 @@
 # Retourne une liste d'actions la plus optimisée avec la technique du sac à dos
 def knapsack(actions, budget):
 
-    budget = budget
     n = len(actions)
 
     # Mise en place de la matrice (lignes: actions / colonnes: budget)
