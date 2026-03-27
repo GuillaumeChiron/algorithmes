@@ -1,7 +1,11 @@
-from fonctions import load_actions, display_result_bruteforce, display_result_optimized
+from fonctions import (
+    load_actions,
+    display_result_bruteforce,
+    display_result_optimized,
+)
 from bruteforce import brute_force_recursive, brute_force_itertools
 from optimized import knapsack, greedy_actions
-
+from sienna import load_actions_sienna, knapsack_sienna, greedy_actions_sienna
 
 file = "csv/liste_d'actions.csv"
 
