@@ -13,15 +13,15 @@ def load_actions_sienna(csv_file):
             if float(l["price"]) > 0:
                 action = l["name"]
                 price = int(float(l["price"]) * 100)
-                profit = int(float(l["profit"]) * 100)
-                rendement = (profit / price) * 100
+                rendement = int(float(l["profit"]) * 100)
+                profit = float(l["price"]) * (float(l["profit"]) / 100)
 
                 list_actions.append(
                     {
                         "action": action,
                         "price": price,
-                        "profit": profit,
                         "rendement": rendement,
+                        "profit": profit,
                     }
                 )
 
@@ -65,7 +65,7 @@ def knapsack_sienna(actions, budget):
             best_cost += action["price"]
             b -= action["price"]
 
-    return best_profit / 100, best_cost / 100, best_combo
+    return best_profit, best_cost / 100, best_combo
 
 
 # Retourne une liste d'actions la plus optimisée avec la technique du glouton
@@ -85,4 +85,4 @@ def greedy_actions_sienna(actions, budget_max):
             total_profit += i["profit"]
             actions_selected.append(i["action"])
 
-    return total_profit / 100, total_cost / 100, actions_selected
+    return total_profit, total_cost / 100, actions_selected
