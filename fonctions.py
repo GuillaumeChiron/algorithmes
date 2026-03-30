@@ -28,9 +28,8 @@ def load_actions(csv_file):
 def display_result_optimized(best_profit, best_cost, best_combo):
 
     print(
-        f"L'achat des {len(best_combo)} actions suivantes:\n\n"
-        f"{best_combo}\n\n"
-        f"pour un cout total de {best_cost} EUR a genere {round(best_profit, 2)} EUR de profit"
+        f"{best_combo}\n"
+        f"L'achat des {len(best_combo)} actions, pour un cout total de {best_cost}€ a generé {round(best_profit, 2)}€ de profit"
     )
 
 
@@ -39,9 +38,9 @@ def display_result_bruteforce(
     total_possibilities, count, best_profit, best_cost, best_combo
 ):
 
-    print(f"Combinaisons théoriques : {total_possibilities}")
-    print(f"Combinaisons testées : {count}")
     print(
-        f"Le meilleur profit est de {round(best_profit, 2)}€, pour un cout de {best_cost}€"
+        f"Combinaisons théoriques : {total_possibilities}\n"
+        f"Combinaisons testées : {count}\n"
+        f"Le meilleur profit est de {round(best_profit, 2)}€, pour un cout de {best_cost}€\n"
+        f"Liste des actions: {best_combo}"
     )
-    print(f"Liste des actions: {best_combo}")
