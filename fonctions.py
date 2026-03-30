@@ -26,9 +26,10 @@ def load_actions(csv_file):
 
 # Affiche les meilleures actions, le meilleur coût et le meilleur profit
 def display_result_optimized(best_profit, best_cost, best_combo):
+    for i in best_combo:
+        print(i)
 
     print(
-        f"{best_combo}\n"
         f"L'achat des {len(best_combo)} actions, pour un cout total de {best_cost}€ a generé {round(best_profit, 2)}€ de profit"
     )
 

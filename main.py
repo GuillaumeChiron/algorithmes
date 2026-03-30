@@ -11,7 +11,7 @@ FILE = "csv/liste_d'actions.csv"
 DATASET1 = "csv/dataset1.csv"
 DATASET2 = "csv/dataset2.csv"
 
-actions = load_actions_sienna(DATASET1)
+actions = load_actions_sienna(DATASET2)
 
 best_profit, best_cost, best_combo = knapsack_sienna(actions, 50000)
 display_result_optimized(best_profit, best_cost, best_combo)
